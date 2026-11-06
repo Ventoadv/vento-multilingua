@@ -1,8 +1,8 @@
 <?php
 /**
  * Plugin Name: Vento Multilingua
- * Description: Sito multilingua con URL per lingua (/en/, /de/, /fr/), slug tradotti, traduzione automatica Google nel browser e correzioni manuali servite lato server (indicizzabili). Sostituisce GTranslate + GTranslate Visual Addon.
- * Version: 1.3.1
+ * Description: Sito multilingua con URL per lingua (/en/, /de/, /fr/), slug tradotti, traduzione automatica Google nel browser e correzioni manuali servite lato server (indicizzabili).
+ * Version: 1.3.2
  * Requires at least: 6.0
  * Requires PHP: 7.4
  * Author: Vento Adv
@@ -14,7 +14,7 @@ if (!defined('ABSPATH')) {
     exit;
 }
 
-define('VML_VERSION', '1.3.1');
+define('VML_VERSION', '1.3.2');
 define('VML_FILE', __FILE__);
 define('VML_PATH', plugin_dir_path(__FILE__));
 define('VML_URL', plugin_dir_url(__FILE__));

@@ -40,9 +40,6 @@ class VML_Admin
     public static function notices()
     {
         if (!current_user_can('activate_plugins')) return;
-        if (class_exists('GTranslate') || defined('GT_ADDON_VERSION')) {
-            echo '<div class="notice notice-warning"><p><strong>Vento Multilingua:</strong> ' . esc_html__('GTranslate e/o GTranslate Visual Addon sono ancora attivi. Disattivali: Vento Multilingua li sostituisce e usarli insieme traduce la pagina due volte.', 'vento-multilingua') . ' <a href="' . esc_url(admin_url('plugins.php')) . '">' . esc_html__('Vai ai plugin', 'vento-multilingua') . '</a></p></div>';
-        }
         $key = 'vml_msg_' . get_current_user_id();
         $msg = get_transient($key);
         if ($msg) {

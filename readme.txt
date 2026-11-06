@@ -1,10 +1,10 @@
 === Vento Multilingua ===
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.3.1
+Stable tag: 1.3.2
 License: GPLv2 or later
 
-Sito multilingua con URL per lingua, slug tradotti, traduzione automatica Google gratuita e correzioni manuali indicizzabili. Sostituisce GTranslate + GTranslate Visual Addon.
+Sito multilingua con URL per lingua, slug tradotti, traduzione automatica Google gratuita e correzioni manuali indicizzabili.
 
 == Come funziona ==
 
@@ -20,7 +20,7 @@ Sito multilingua con URL per lingua, slug tradotti, traduzione automatica Google
 
 == Installazione ==
 
-1. Disattiva GTranslate e GTranslate Visual Addon.
+1. Disattiva eventuali altri plugin di traduzione.
 2. Attiva Vento Multilingua.
 3. Multilingua → Impostazioni: verifica lingua base e lingue aggiuntive.
 4. Impostazioni → Permalink: premi "Salva" una volta (non obbligatorio, ma consigliato).
