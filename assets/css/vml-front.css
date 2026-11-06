@@ -1,0 +1,39 @@
+/* Vento Multilingua - frontend */
+
+/* Nasconde barra e tooltip di Google Translate */
+html body { top: 0 !important; }
+.skiptranslate > iframe, iframe.skiptranslate, .goog-te-banner-frame, #goog-gt-tt, .goog-te-balloon-frame,
+.VIpgJd-ZVi9od-ORHb-OEVmcd, .VIpgJd-ZVi9od-aZ2wEe-wOHMyf, .VIpgJd-ZVi9od-aZ2wEe-OiiCO, .VIpgJd-yAWNEb-L7lbkb { display: none !important; }
+.goog-text-highlight, .VIpgJd-yAWNEb-VIpgJd-fmcmS-sn54Q { background: none !important; box-shadow: none !important; }
+#vml-google-element { display: none !important; }
+
+/* Selettore */
+.vml-switcher { position: relative; display: inline-block; font-size: 14px; line-height: 1.2; z-index: 50; }
+.vml-switcher ul { list-style: none; margin: 0; padding: 0; }
+.vml-switcher a { display: inline-flex; align-items: center; gap: 6px; text-decoration: none; color: inherit; }
+.vml-flag { display: inline-block; width: 21px; height: 14px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,.12); flex: none; vertical-align: middle; }
+.vml-flag-code { font-size: 10px; font-weight: 700; line-height: 14px; text-align: center; background: #e5e7eb; color: #111; }
+
+.vml-style-dropdown .vml-toggle { display: inline-flex; align-items: center; gap: 6px; padding: 7px 10px; background: #fff; color: #1f2937; border: 1px solid rgba(0,0,0,.15); border-radius: 6px; cursor: pointer; font: inherit; }
+.vml-caret { width: 0; height: 0; border-left: 4px solid transparent; border-right: 4px solid transparent; border-top: 5px solid currentColor; margin-left: 2px; }
+.vml-style-dropdown .vml-menu { display: none; position: absolute; left: 0; top: 100%; margin-top: 4px; min-width: 100%; background: #fff; border: 1px solid rgba(0,0,0,.15); border-radius: 6px; box-shadow: 0 6px 20px rgba(0,0,0,.12); padding: 4px 0; }
+.vml-style-dropdown.vml-up .vml-menu { top: auto; bottom: 100%; margin: 0 0 4px; }
+.vml-style-dropdown:hover .vml-menu, .vml-style-dropdown:focus-within .vml-menu, .vml-style-dropdown.vml-open .vml-menu { display: block; }
+.vml-style-dropdown .vml-menu a { display: flex; padding: 7px 12px; color: #1f2937; white-space: nowrap; }
+.vml-style-dropdown .vml-menu a:hover { background: #f3f4f6; }
+
+.vml-inline { display: flex; gap: 10px; align-items: center; flex-wrap: wrap; }
+.vml-inline .vml-current { font-weight: 700; }
+.vml-style-flags .vml-item { opacity: .6; }
+.vml-style-flags .vml-current, .vml-style-flags .vml-item:hover { opacity: 1; }
+.vml-style-codes li + li::before { content: "·"; margin-right: 10px; opacity: .5; }
+
+/* Fluttuante */
+.vml-float { position: fixed; z-index: 99990; }
+.vml-float-bottom-right { right: 16px; bottom: 16px; }
+.vml-float-bottom-left { left: 16px; bottom: 16px; }
+.vml-float-top-right { right: 16px; top: 16px; }
+.vml-float-top-left { left: 16px; top: 16px; }
+.admin-bar .vml-float-top-right, .admin-bar .vml-float-top-left { top: 48px; }
+.vml-float-bottom-right .vml-menu, .vml-float-top-right .vml-menu { left: auto; right: 0; }
+.vml-float .vml-toggle { box-shadow: 0 4px 14px rgba(0,0,0,.15); }

@@ -1,0 +1,14 @@
+.vml-wrap .vml-lead { max-width: 820px; font-size: 14px; color: #3c434a; }
+.vml-wrap .vml-flag { display: inline-block; width: 21px; height: 14px; vertical-align: -2px; border-radius: 2px; box-shadow: 0 0 0 1px rgba(0,0,0,.12); }
+.vml-wrap .vml-flag-code { font-size: 9px; font-weight: 700; line-height: 14px; text-align: center; background: #dcdcde; }
+.vml-lang-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px 16px; max-width: 920px; }
+.vml-lang-grid code { font-size: 11px; }
+.vml-search { margin: 14px 0; display: flex; gap: 6px; align-items: center; }
+.vml-count { margin-left: 10px; color: #646970; }
+.vml-table td { vertical-align: top; }
+.vml-table textarea, .vml-table input[type=text] { width: 100%; }
+.vml-table th.vml-del, .vml-table td.vml-del { width: 70px; text-align: center; }
+.vml-table .vml-new td { background: #f0f6fc; }
+.vml-status { font-size: 11px; background: #f0f0f1; padding: 1px 6px; border-radius: 3px; color: #646970; }
+.vml-cards { display: grid; grid-template-columns: repeat(auto-fill, minmax(340px, 1fr)); gap: 16px; max-width: 900px; }
+.vml-card { background: #fff; border: 1px solid #dcdcde; border-radius: 6px; padding: 4px 18px 18px; }
