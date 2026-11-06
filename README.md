@@ -159,6 +159,8 @@ Ogni testo può essere lungo al massimo 2.000 caratteri.
 - **Nell'header, automatico** (*Impostazioni → Selettore lingue → Inserimento nell'header*), con uno stile dedicato:
   - **come ultima voce del menu**: in tutti i menu (menu classici, widget menu di Elementor e blocco *Navigazione* dei temi a blocchi) oppure in un menu specifico;
   - **dentro un elemento dell'header** indicato con un selettore CSS (es. `header`, `.elementor-location-header .elementor-container`), all'inizio o alla fine. Se l'elemento non esiste nella pagina il selettore non viene mostrato.
+
+  > Se l'header è scritto a mano (per esempio in un widget HTML di Elementor) non esiste un menu di WordPress a cui aggiungere la voce: usa il selettore CSS. Esempio per un header `<header id="header">` con `<nav class="nav">`: selettore `#header .nav`, posizione *alla fine*.
 - **Shortcode** `[vml_switcher]`, da inserire per esempio nell'header con il widget *Shortcode* di Elementor o con il blocco *Shortcode*.
 
 Opzioni dello shortcode:
