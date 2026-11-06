@@ -12,6 +12,12 @@
         return e;
     }
     function norm(s) { return (s || '').replace(/[\s ]+/g, ' ').trim(); }
+    // Le traduzioni non distinguono maiuscole/minuscole: trova la chiave salvata equivalente.
+    function findKey(text) {
+        var f = norm(text).toLowerCase();
+        for (var k in strings) { if (Object.prototype.hasOwnProperty.call(strings, k) && k.toLowerCase() === f) return k; }
+        return null;
+    }
     function esc(s) { var d = document.createElement('div'); d.textContent = s; return d.innerHTML; }
 
     // Barra in basso
@@ -42,8 +48,9 @@
     function open(text) {
         current = norm(text);
         origBox.textContent = current;
-        ta.value = strings[current] || '';
-        delBtn.style.display = strings[current] ? '' : 'none';
+        var key = findKey(current);
+        ta.value = key ? strings[key] : '';
+        delBtn.style.display = key ? '' : 'none';
         msg.textContent = '';
         overlay.classList.add('vml-show');
         setTimeout(function () { ta.focus(); }, 30);

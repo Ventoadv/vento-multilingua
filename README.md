@@ -11,7 +11,7 @@ Esempio con l'italiano come lingua base:
 | Tedesco  | `https://sito.it/de/uber-uns/`    |
 | Francese | `https://sito.it/fr/qui-sommes-nous/` |
 
-- Versione: 1.4.0
+- Versione: 1.5.0
 - Requisiti: WordPress 6.0+, PHP 7.4+
 - Nessuna chiave API, nessun servizio a pagamento.
 
@@ -146,6 +146,7 @@ Come funzionano:
 
 - vengono salvate come coppie *testo originale → traduzione*, una lista per lingua;
 - il server sostituisce il testo originale nell'HTML ovunque compaia (parole intere, spazi multipli ignorati), quindi la correzione vale su tutte le pagine;
+- il confronto **non distingue maiuscole e minuscole**: una sola voce "I Medici" vale anche per "I MEDICI" e "i medici". Se il testo trovato è tutto maiuscolo, la traduzione viene scritta tutta in maiuscolo; se inizia con la maiuscola, anche la traduzione inizia con la maiuscola. Le voci che differiscono solo per le maiuscole vengono unite al salvataggio;
 - non vengono toccati script, stili, campi di testo e SVG;
 - la lista completa è in **Multilingua → Traduzioni testi**, con ricerca, modifica, eliminazione e aggiunta manuale.
 

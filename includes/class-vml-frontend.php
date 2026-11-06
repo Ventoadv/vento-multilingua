@@ -79,7 +79,7 @@ class VML_Frontend
         $regex = VML_Strings::regex($lang);
         $strings = $regex ? VML_Strings::get($lang) : [];
         $lookup = [];
-        foreach ($strings as $k => $v) $lookup[preg_replace('/[\s\x{00A0}]+/u', ' ', $k)] = $v;
+        foreach ($strings as $k => $v) $lookup[VML_Strings::fold($k)] = $v;
 
         // 1) Proteggi blocchi il cui contenuto non è testo visibile.
         $protected = [];
@@ -137,14 +137,14 @@ class VML_Frontend
                 $out .= htmlspecialchars($p, ENT_NOQUOTES, 'UTF-8', false);
                 continue;
             }
-            $key = preg_replace('/[\s\x{00A0}]+/u', ' ', $p);
+            $key = VML_Strings::fold($p);
             if (!isset($lookup[$key])) {
                 $out .= htmlspecialchars($p, ENT_NOQUOTES, 'UTF-8', false);
                 continue;
             }
-            $t = esc_html($lookup[$key]);
+            $t = esc_html(VML_Strings::match_case($p, $lookup[$key]));
             if ($wrap) {
-                $out .= '<span class="notranslate vml-t" translate="no"' . ($edit ? ' data-vml-o="' . esc_attr($key) . '"' : '') . '>' . $t . '</span>';
+                $out .= '<span class="notranslate vml-t" translate="no"' . ($edit ? ' data-vml-o="' . esc_attr(preg_replace('/[\s\x{00A0}]+/u', ' ', $p)) . '"' : '') . '>' . $t . '</span>';
             } else {
                 $out .= $t;
             }
