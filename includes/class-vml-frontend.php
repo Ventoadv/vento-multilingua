@@ -20,6 +20,10 @@ class VML_Frontend
         add_filter('pre_get_document_title', [__CLASS__, 'document_title'], 20);
         add_shortcode('vml_switcher', [__CLASS__, 'shortcode']);
 
+        // Inserimento automatico nell'header.
+        add_filter('wp_nav_menu_items', [__CLASS__, 'menu_item'], 20, 2);
+        add_filter('render_block_core/navigation', [__CLASS__, 'navigation_block'], 20, 2);
+
         // Compatibilità plugin SEO.
         add_filter('wpseo_title', [__CLASS__, 'seo_title'], 20);
         add_filter('wpseo_metadesc', [__CLASS__, 'seo_desc'], 20);
@@ -307,6 +311,8 @@ html.vml-ready body{transition:opacity .2s ease-in}
             'google' => $google ? 1 : 0,
             'source' => VML_Languages::google_code(VML_Settings::default_lang()),
             'target' => VML_Languages::google_code($lang),
+            'headerSelector' => VML_Settings::get('header_mode') === 'selector' ? (string) VML_Settings::get('header_selector') : '',
+            'headerPosition' => VML_Settings::get('header_position') === 'prepend' ? 'prepend' : 'append',
         ]);
     }
 
@@ -318,6 +324,45 @@ html.vml-ready body{transition:opacity .2s ease-in}
             $pos = sanitize_html_class(VML_Settings::get('float_position') ?: 'bottom-right');
             echo '<div class="vml-float vml-float-' . esc_attr($pos) . '">' . self::render_switcher(['style' => 'dropdown', 'up' => strpos($pos, 'bottom') === 0]) . '</div>';
         }
+        // Selettore da spostare nell'header tramite selettore CSS (vedi vml-front.js).
+        if (VML_Settings::get('header_mode') === 'selector' && VML_Settings::get('header_selector')) {
+            echo '<div id="vml-header-switcher" hidden>' . self::header_switcher() . '</div>';
+        }
+    }
+
+    /* ---------------- Header ---------------- */
+
+    private static function header_switcher($extra_class = '')
+    {
+        return self::render_switcher(['style' => VML_Settings::get('header_style') ?: 'dropdown', 'class' => 'vml-in-header ' . $extra_class]);
+    }
+
+    /** Voce aggiunta in fondo ai menu classici (anche widget menu di Elementor). */
+    public static function menu_item($items, $args)
+    {
+        if (VML_Settings::get('header_mode') !== 'menu' || self::is_excluded() || is_admin()) return $items;
+        $target = (string) VML_Settings::get('header_menu');
+        if ($target !== 'all') {
+            $menu = null;
+            if (!empty($args->menu)) {
+                $menu = is_object($args->menu) ? $args->menu : wp_get_nav_menu_object($args->menu);
+            }
+            if (!$menu && !empty($args->theme_location)) {
+                $locations = get_nav_menu_locations();
+                if (isset($locations[$args->theme_location])) $menu = wp_get_nav_menu_object($locations[$args->theme_location]);
+            }
+            if (!$menu || (string) $menu->term_id !== $target) return $items;
+        }
+        return $items . '<li class="menu-item vml-menu-item">' . self::header_switcher() . '</li>';
+    }
+
+    /** Blocco Navigazione dei temi a blocchi (es. Twenty Twenty-Five). */
+    public static function navigation_block($html, $block)
+    {
+        if (VML_Settings::get('header_mode') !== 'menu' || VML_Settings::get('header_menu') !== 'all' || self::is_excluded()) return $html;
+        $li = '<li class="wp-block-navigation-item vml-menu-item">' . self::header_switcher() . '</li>';
+        $pos = strrpos($html, '</ul>');
+        return $pos === false ? $html : substr_replace($html, $li . '</ul>', $pos, 5);
     }
 
     public static function shortcode($atts)
@@ -335,6 +380,7 @@ html.vml-ready body{transition:opacity .2s ease-in}
             'style' => VML_Settings::get('switcher_style') ?: 'dropdown',
             'flags' => VML_Settings::get('show_flags'),
             'up'    => false,
+            'class' => '',
         ]);
         $flags = filter_var($args['flags'], FILTER_VALIDATE_BOOLEAN) || $args['flags'] === 1 || $args['flags'] === '1';
         $current = VML_Router::lang();
@@ -353,7 +399,7 @@ html.vml-ready body{transition:opacity .2s ease-in}
 
         $langs = VML_Settings::all_languages();
         $style = in_array($args['style'], ['dropdown', 'flags', 'list', 'codes'], true) ? $args['style'] : 'dropdown';
-        $out = '<div class="vml-switcher vml-style-' . $style . ($args['up'] ? ' vml-up' : '') . ' notranslate" translate="no">';
+        $out = '<div class="vml-switcher vml-style-' . $style . ($args['up'] ? ' vml-up' : '') . ($args['class'] ? ' ' . esc_attr(trim($args['class'])) : '') . ' notranslate" translate="no">';
 
         if ($style === 'dropdown') {
             $out .= '<button type="button" class="vml-toggle" aria-haspopup="true">' . ($flags ? VML_Languages::flag($current) : '') . '<span class="vml-label">' . esc_html(VML_Languages::native_name($current)) . '</span><span class="vml-caret" aria-hidden="true"></span></button><ul class="vml-menu">';

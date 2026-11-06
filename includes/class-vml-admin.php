@@ -118,6 +118,26 @@ class VML_Admin
                             <select name="float_position">
                                 <?php foreach (['bottom-right' => 'In basso a destra', 'bottom-left' => 'In basso a sinistra', 'top-right' => 'In alto a destra', 'top-left' => 'In alto a sinistra'] as $k => $v) printf('<option value="%s"%s>%s</option>', esc_attr($k), selected($s['float_position'], $k, false), esc_html($v)); ?>
                             </select></p>
+                        <fieldset class="vml-header-opt">
+                            <legend><strong><?php esc_html_e('Inserimento nell\'header', 'vento-multilingua'); ?></strong></legend>
+                            <p><label><input type="radio" name="header_mode" value="none" <?php checked($s['header_mode'], 'none'); ?>> <?php esc_html_e('Non inserire', 'vento-multilingua'); ?></label></p>
+                            <p><label><input type="radio" name="header_mode" value="menu" <?php checked($s['header_mode'], 'menu'); ?>> <?php esc_html_e('Come ultima voce del menu di navigazione', 'vento-multilingua'); ?></label>
+                                <select name="header_menu">
+                                    <option value="all" <?php selected($s['header_menu'], 'all'); ?>><?php esc_html_e('Tutti i menu (anche blocco Navigazione del tema)', 'vento-multilingua'); ?></option>
+                                    <?php foreach (wp_get_nav_menus() as $m) printf('<option value="%d"%s>%s</option>', (int) $m->term_id, selected((string) $s['header_menu'], (string) $m->term_id, false), esc_html($m->name)); ?>
+                                </select></p>
+                            <p><label><input type="radio" name="header_mode" value="selector" <?php checked($s['header_mode'], 'selector'); ?>> <?php esc_html_e('Dentro un elemento dell\'header (selettore CSS)', 'vento-multilingua'); ?></label>
+                                <input type="text" name="header_selector" value="<?php echo esc_attr($s['header_selector']); ?>" placeholder=".elementor-location-header .elementor-container" class="regular-text">
+                                <select name="header_position">
+                                    <option value="append" <?php selected($s['header_position'], 'append'); ?>><?php esc_html_e('alla fine', 'vento-multilingua'); ?></option>
+                                    <option value="prepend" <?php selected($s['header_position'], 'prepend'); ?>><?php esc_html_e('all\'inizio', 'vento-multilingua'); ?></option>
+                                </select></p>
+                            <p><label><?php esc_html_e('Stile nell\'header', 'vento-multilingua'); ?>
+                                <select name="header_style">
+                                    <?php foreach (['dropdown' => 'Menu a tendina', 'flags' => 'Solo bandiere', 'list' => 'Elenco nomi', 'codes' => 'Codici (IT · EN)'] as $k => $v) printf('<option value="%s"%s>%s</option>', esc_attr($k), selected($s['header_style'], $k, false), esc_html($v)); ?>
+                                </select></label></p>
+                            <p class="description"><?php esc_html_e('Esempi di selettore: header (header del tema), .elementor-location-header .elementor-container (header Elementor), #masthead .menu. Se l\'elemento non esiste nella pagina il selettore non viene mostrato.', 'vento-multilingua'); ?></p>
+                        </fieldset>
                         <p class="description"><?php echo wp_kses_post(__('Per inserirlo nell\'header usa lo shortcode <code>[vml_switcher]</code> (widget Shortcode di Elementor o blocco Shortcode). Opzioni: <code>[vml_switcher style="flags"]</code>, <code>style="list"</code>, <code>style="codes"</code>, <code>flags="0"</code>.', 'vento-multilingua')); ?></p>
                     </td></tr>
                 </table>
@@ -139,6 +159,11 @@ class VML_Admin
         }));
         $style = isset($_POST['switcher_style']) ? sanitize_key(wp_unslash($_POST['switcher_style'])) : 'dropdown';
         $pos = isset($_POST['float_position']) ? sanitize_key(wp_unslash($_POST['float_position'])) : 'bottom-right';
+        $hmode = isset($_POST['header_mode']) ? sanitize_key(wp_unslash($_POST['header_mode'])) : 'none';
+        $hmenu = isset($_POST['header_menu']) ? sanitize_key(wp_unslash($_POST['header_menu'])) : 'all';
+        $hsel = isset($_POST['header_selector']) ? trim(str_replace(['<', '>', '"', "'", '`', '{', '}', ';'], '', sanitize_text_field(wp_unslash($_POST['header_selector'])))) : '';
+        $hpos = isset($_POST['header_position']) ? sanitize_key(wp_unslash($_POST['header_position'])) : 'append';
+        $hstyle = isset($_POST['header_style']) ? sanitize_key(wp_unslash($_POST['header_style'])) : 'dropdown';
         $current = VML_Settings::get();
         VML_Settings::save(array_merge($current, [
             'default_lang'   => $default,
@@ -150,6 +175,11 @@ class VML_Admin
             'float_position' => in_array($pos, ['bottom-right', 'bottom-left', 'top-right', 'top-left'], true) ? $pos : 'bottom-right',
             'switcher_style' => in_array($style, ['dropdown', 'flags', 'list', 'codes'], true) ? $style : 'dropdown',
             'show_flags'     => empty($_POST['show_flags']) ? 0 : 1,
+            'header_mode'     => in_array($hmode, ['none', 'menu', 'selector'], true) ? $hmode : 'none',
+            'header_menu'     => ($hmenu === 'all' || ctype_digit($hmenu)) ? $hmenu : 'all',
+            'header_selector' => mb_substr($hsel, 0, 200),
+            'header_position' => $hpos === 'prepend' ? 'prepend' : 'append',
+            'header_style'    => in_array($hstyle, ['dropdown', 'flags', 'list', 'codes'], true) ? $hstyle : 'dropdown',
         ]));
         self::back('vml-settings', __('Impostazioni salvate.', 'vento-multilingua'));
     }

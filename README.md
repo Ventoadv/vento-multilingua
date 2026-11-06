@@ -11,7 +11,7 @@ Esempio con l'italiano come lingua base:
 | Tedesco  | `https://sito.it/de/uber-uns/`    |
 | Francese | `https://sito.it/fr/qui-sommes-nous/` |
 
-- Versione: 1.3.2
+- Versione: 1.4.0
 - Requisiti: WordPress 6.0+, PHP 7.4+
 - Nessuna chiave API, nessun servizio a pagamento.
 
@@ -97,7 +97,7 @@ Alla prima attivazione la lingua base viene presa dalla lingua di WordPress e so
 | Lingue aggiuntive | Le lingue disponibili; ognuna ha il suo prefisso (`/en/`, `/de/`…). |
 | Traduzione automatica | Attiva Google Translate nel browser per le lingue aggiuntive. |
 | Caricamento | Nasconde la pagina con un indicatore finché la traduzione è pronta, con un'attesa massima configurabile (predefinito 4 secondi). |
-| Selettore lingue | Stile predefinito, bandiere sì/no, selettore fluttuante e sua posizione. |
+| Selettore lingue | Stile predefinito, bandiere sì/no, selettore fluttuante e sua posizione, inserimento automatico nell'header (menu o selettore CSS) con stile dedicato. |
 
 ---
 
@@ -156,6 +156,9 @@ Ogni testo può essere lungo al massimo 2.000 caratteri.
 ## Selettore lingue
 
 - **Fluttuante**: attivabile nelle impostazioni, in uno dei quattro angoli dello schermo.
+- **Nell'header, automatico** (*Impostazioni → Selettore lingue → Inserimento nell'header*), con uno stile dedicato:
+  - **come ultima voce del menu**: in tutti i menu (menu classici, widget menu di Elementor e blocco *Navigazione* dei temi a blocchi) oppure in un menu specifico;
+  - **dentro un elemento dell'header** indicato con un selettore CSS (es. `header`, `.elementor-location-header .elementor-container`), all'inizio o alla fine. Se l'elemento non esiste nella pagina il selettore non viene mostrato.
 - **Shortcode** `[vml_switcher]`, da inserire per esempio nell'header con il widget *Shortcode* di Elementor o con il blocco *Shortcode*.
 
 Opzioni dello shortcode:

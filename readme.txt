@@ -1,7 +1,7 @@
 === Vento Multilingua ===
 Requires at least: 6.0
 Requires PHP: 7.4
-Stable tag: 1.3.2
+Stable tag: 1.4.0
 License: GPLv2 or later
 
 Sito multilingua con URL per lingua, slug tradotti, traduzione automatica Google gratuita e correzioni manuali indicizzabili.
@@ -30,7 +30,7 @@ Sito multilingua con URL per lingua, slug tradotti, traduzione automatica Google
 * Slug e SEO: box "Traduzioni: slug e SEO" nella modifica di pagine/articoli, oppure Multilingua → Slug tradotti per modificarli tutti in tabella. Le categorie hanno i campi nella loro pagina di modifica.
 * Correzioni testi: dalla barra admin sul sito → "Traduzioni" → "Modalità traduzione: English"; clicca un testo, scrivi la traduzione, salva. Elenco completo in Multilingua → Traduzioni testi.
 * Import/Export CSV di testi e slug in Multilingua → Importa / Esporta.
-* Selettore lingue: fluttuante (impostazioni) oppure shortcode [vml_switcher] — style="dropdown|flags|list|codes", flags="0|1".
+* Selettore lingue: fluttuante, inserito automaticamente nell'header (in fondo al menu oppure dentro un elemento indicato con selettore CSS) o con shortcode [vml_switcher] — style="dropdown|flags|list|codes", flags="0|1".
 
 == Funzioni per sviluppatori ==
 

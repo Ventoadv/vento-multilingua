@@ -20,6 +20,11 @@ class VML_Settings
             'float_position' => 'bottom-right',
             'switcher_style' => 'dropdown',
             'show_flags'     => 1,
+            'header_mode'     => 'none',    // none | menu | selector
+            'header_menu'     => 'all',     // 'all' o ID del menu
+            'header_selector' => '',        // selettore CSS dell'elemento dell'header
+            'header_position' => 'append',  // append | prepend
+            'header_style'    => 'dropdown',
             'capability'     => 'manage_options',
         ];
     }

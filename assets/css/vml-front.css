@@ -37,3 +37,10 @@ html body { top: 0 !important; }
 .admin-bar .vml-float-top-right, .admin-bar .vml-float-top-left { top: 48px; }
 .vml-float-bottom-right .vml-menu, .vml-float-top-right .vml-menu { left: auto; right: 0; }
 .vml-float .vml-toggle { box-shadow: 0 4px 14px rgba(0,0,0,.15); }
+
+/* Nell'header */
+.vml-in-header { vertical-align: middle; }
+.vml-in-header.vml-style-dropdown .vml-toggle { background: transparent; color: inherit; border-color: currentColor; padding: 5px 8px; }
+.vml-menu-item { display: flex; align-items: center; list-style: none; }
+.vml-menu-item .vml-switcher .vml-menu a { color: #1f2937; }
+.vml-menu-item .vml-style-dropdown .vml-menu { left: auto; right: 0; }

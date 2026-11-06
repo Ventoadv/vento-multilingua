@@ -73,6 +73,22 @@
         }
     }
 
+    // Selettore nell'header tramite selettore CSS.
+    function placeHeaderSwitcher() {
+        var holder = document.getElementById('vml-header-switcher');
+        if (!holder || !c.headerSelector) return;
+        var target = null;
+        try { target = document.querySelector(c.headerSelector); } catch (e) { return; }
+        if (!target) return;
+        var sw = holder.firstElementChild;
+        if (!sw) return;
+        if (c.headerPosition === 'prepend') target.insertBefore(sw, target.firstChild);
+        else target.appendChild(sw);
+        holder.parentNode.removeChild(holder);
+    }
+    if (document.readyState === 'loading') document.addEventListener('DOMContentLoaded', placeHeaderSwitcher);
+    else placeHeaderSwitcher();
+
     // Selettore a tendina: apertura con click/touch e chiusura fuori.
     document.addEventListener('click', function (e) {
         var toggle = e.target.closest ? e.target.closest('.vml-toggle') : null;
